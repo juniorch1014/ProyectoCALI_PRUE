@@ -1,0 +1,380 @@
+<html>
+    <head>
+        <title>Cliente</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <!--ICONOS-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <!--Sweet Alert 2-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script>
+            function Eliminar(opcion){
+                
+                event.preventDefault();
+                
+                Swal.fire({
+                    title: '¿Estas seguro?',
+                    text: "¡No serás capaz de recuperarlo!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                                '¡Eliminado!',
+                                'El cliente ha sido eliminado.',
+                                'success'
+                                ).then((result)=>{
+                                    if (result.isConfirmed){
+                                        location.href = opcion.href;
+                                    }
+                                });
+                    }
+                })
+            }
+        
+            function TiempoBusqueda(){
+                event.preventDefault();
+                let timerInterval
+                Swal.fire({
+                    title: 'Realizando búsqueda',
+                    html: 'Tiempo restante: <b></b> milisegundos.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                    
+                    document.formBuscarCli.submit(); 
+                })
+            }
+        
+            
+            function Registrar(){
+                
+                event.preventDefault();
+                
+                const nom = document.getElementById("nom").value;
+                const ape = document.getElementById("ape").value;
+                const dni = document.getElementById("dni").value;
+                const cel = document.getElementById("cel").value;
+                const email = document.getElementById("email").value;
+                const dir = document.getElementById("dir").value;
+                
+                if(nom=="" || ape=="" || dni=="" || cel=="" || email=="" || dir=="" )
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No pueden haber espacios vacios',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+                
+                else
+                {
+                        Swal.fire({
+                        title: '¿Quieres registrar el cliente?',
+                        text: "Agregando un nuevo cliente...",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    '¡Guardado!',
+                                    'El cliente ha sido registrado.',
+                                    'success'
+                                    ).then((result)=>{
+                                        if (result.isConfirmed){
+                                            const formulario = document.getElementById("formRegistroCli");
+                                            formulario.submit();
+                                        }
+                                    });
+                        } else if (result.isDenied) {
+                            Swal.fire('La información no ha sido registrada', '', 'info');
+                        }
+                    });
+                }
+            }
+            
+            function Editar(){
+                const exampleModal = document.getElementById('ModalEditar');
+                exampleModal.addEventListener('show.bs.modal', event => {
+                    // Button that triggered the modal
+                    const button = event.relatedTarget;
+                    
+                    // Datos
+                    const id = button.getAttribute('data-bs-id');
+                    const nom = button.getAttribute('data-bs-nombre');
+                    const ape = button.getAttribute('data-bs-apellido');
+                    const dni = button.getAttribute('data-bs-dni');
+                    const cel = button.getAttribute('data-bs-celular');
+                    const email = button.getAttribute('data-bs-email');
+                    const dir = button.getAttribute('data-bs-direccion');
+                    
+                    // Campos
+                    const campoId = document.getElementById('id');
+                    const campoNom = document.getElementById('nomCE');
+                    const campoApe = document.getElementById('apeCE');
+                    const campoDni = document.getElementById('dniCE');
+                    const campoCel = document.getElementById('celCE');
+                    const campoEmail = document.getElementById('emailCE');
+                    const campoDir = document.getElementById('dirCE');
+                    
+                    //Colocar los datos a los datos
+                    campoId.value=id;
+                    campoNom.value=nom;
+                    campoApe.value=ape;
+                    campoDni.value=dni;
+                    campoCel.value=cel;
+                    campoEmail.value=email;
+                    campoDir.value=dir;
+                    
+                });
+            }
+            
+            function Actualizar(){
+                
+                event.preventDefault();
+                
+                //const id = document.getElementById("id").value;
+                const nom = document.getElementById("nomCE").value;
+                const ape = document.getElementById("apeCE").value;
+                const dni = document.getElementById("dniCE").value;
+                const cel = document.getElementById("celCE").value;
+                const email = document.getElementById("emailCE").value;
+                const dir = document.getElementById("dirCE").value;
+                
+                if(nom=="" || ape=="" || dni=="" || cel=="" || email=="" || dir=="")
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No pueden haber espacios vacios',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+                
+                else
+                {
+                        Swal.fire({
+                        title: '¿Quieres actualizar el cliente?',
+                        text: "Actualizando los datos...",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    '¡Guardado!',
+                                    'El cliente ha sido actualizado.',
+                                    'success'
+                                    ).then((result)=>{
+                                        if (result.isConfirmed){
+                                            const formulario = document.getElementById("formActualizarCli");
+                                            formulario.submit();
+                                        }
+                                    });
+                        } else if (result.isDenied) {
+                            Swal.fire('La información no ha sido actualizada', '', 'info');
+                        }
+                    });
+                }
+            }
+        </script>
+        
+    </head>
+    <body onload="Editar()">
+
+            <div th:insert="menu :: #menu"> </div> 
+
+            <div class="container">
+            <hr>
+            
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-circle"></i></button>
+                    <a th:href="@{orden_ascC}" class="btn btn-warning"><i class="bi bi-sort-up"></i></a>
+                    <a th:href="@{orden_descC}" class="btn btn-info"><i class="bi bi-sort-down"></i></a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                            
+                        </ul>
+                        <form class="d-flex" role="search" action="buscarC" method="POST" name="formBuscarCli">
+                            <input type="text" class="form-control me-2" name="dato" placeholder="Ingrese dato a buscar">
+                            <button onclick="return TiempoBusqueda()" class="btn btn-outline-success" type="submit"><i class="bi bi-search">Buscar</i></button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- <div class="alert alert-secondary" role="alert">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-circle"></i></button>
+                <!-- <a th:hred="@{/}" class="btn btn-success">Agregar</a> 
+                <a th:href="@{orden_ascC}" class="btn btn-warning"><i class="bi bi-sort-up"></i></a>
+                <a th:href="@{orden_descC}" class="btn btn-info"><i class="bi bi-sort-down"></i></a>
+                <form class="d-flex" role="search" action="buscarC" method="POST" name="formBuscarCli">
+                    <input type="text" class="form-control me-2" name="dato" placeholder="Ingrese dato a buscar">
+                    <button onclick="return TiempoBusqueda()" class="btn btn-outline-success" type="submit"><i class="bi bi-search">Buscar</i></button>
+                </form>
+            </div> -->
+            <hr>
+
+            
+            <hr>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table" style="background-color: #778899;">
+                        <th scope="col" style="color:#ffffff;">#</th>
+                        <th scope="col" style="color:#ffffff;">ID</th>
+                        <th scope="col" style="color:#ffffff;">Nombre</th>
+                        <th scope="col" style="color:#ffffff;">Apellido</th>
+                        <th scope="col" style="color:#ffffff;">DNI</th>
+                        <th scope="col" style="color:#ffffff;">Celular</th>
+                        <th scope="col" style="color:#ffffff;">Email</th>
+                        <th scope="col" style="color:#ffffff;">Dirección</th>
+                        <th scope="col" style="color:#ffffff;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr th:each="cliente,status : ${clientes}">
+                        <td th:text="${status.count}"></td>
+                        <td th:text="${cliente.id}"></td>
+                        <td th:text="${cliente.nombre}"></td>
+                        <td th:text="${cliente.apellido}"></td>
+                        <td th:text="${cliente.dni}"></td>
+                        <td th:text="${cliente.celular}"></td>
+                        <td th:text="${cliente.email}"></td>
+                        <td th:text="${cliente.direccion}"></td>
+                        <td>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalEditar" th:attr="data-bs-id=${cliente.id},data-bs-nombre=${cliente.nombre},data-bs-apellido=${cliente.apellido},data-bs-dni=${cliente.dni},data-bs-celular=${cliente.celular},data-bs-email=${cliente.email},data-bs-direccion=${cliente.direccion}" ><i class="bi bi-pencil-square"></i></button>
+                        
+                            <a onclick="return Eliminar(this)" th:href="@{eliminarC(id=${cliente.id})}" class="btn btn-warning"><i class="bi bi-trash3-fill"></i></a>
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+            
+        </div>
+        
+        
+        <!-- Modal REGISTRAR -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo cliente</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="registrarC" method="POST" name="formRegistroCli" id="formRegistroCli">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                <input type="text" class="form-control" name="nom" id="nom" placeholder="Nombre de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Apellido: </label>
+                                <input class="form-control" name="ape" id="ape" placeholder="Apellido de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">DNI: </label>
+                                <input class="form-control" name="dni" id="dni" placeholder="DNI de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Celular: </label>
+                                <input class="form-control" name="cel" id="cel" placeholder="Celular de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Email: </label>
+                                <input class="form-control" name="email" id="email" placeholder="Email de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Dirección: </label>
+                                <input class="form-control" name="dir" id="dir" placeholder="Dirección de cliente">
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button onclick="return Registrar()" type="button" class="btn btn-primary">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal EDITAR -->
+        <div class="modal fade" id="ModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar cliente</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="actualizarC" method="POST" name="formActualizarCli" id="formActualizarCli">
+                            <input type="hidden" name="id" id="id">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                <input type="text" class="form-control" name="nombre" id="nomCE" placeholder="Nombre de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Apellido: </label>
+                                <input class="form-control" name="apellido" id="apeCE" placeholder="Apellido de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">DNI: </label>
+                                <input class="form-control" name="dniC" id="dniCE" placeholder="DNI de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Celular: </label>
+                                <input class="form-control" name="celular" id="celCE" placeholder="Celular de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Email: </label>
+                                <input class="form-control" name="emailC" id="emailCE" placeholder="Email de cliente">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Dirección: </label>
+                                <input class="form-control" name="direccion" id="dirCE" placeholder="Dirección de cliente">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button onclick="return Actualizar()" type="button" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,351 @@
+<html>
+    <head>
+        <title>Empleado</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <!--ICONOS-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <!--Sweet Alert 2-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!--CSS-->
+
+        <link href="templates.Empleados/estilos.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Google Charts -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://gstatic.com/charts/loader.js"></script>
+
+        <!-- Dibujar el gráfico -->
+
+        <script th:inline="javascript">
+            var real_data = /*[[${graphData}]]*/'noValue';
+            $(document).ready(function () {
+                google.charts.load('current', {
+                    packages: ['corechart', 'bar']
+                });
+                google.charts.setOnLoadCallback(drawColumnChart);
+                google.charts.setOnLoadCallback(drawPieChart);
+            });
+            function drawColumnChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Clientes');
+                data.addColumn('number', 'Cantidad');
+                Object.keys(real_data).forEach(function (key) {
+                    data.addRow([key, real_data[key]]);
+                });
+                var options = {
+                    title: 'Cantidad de Registros por Cliente',
+                    hAxis: {
+                        title: ''
+                    },
+                    vAxis: {
+                        title: ''
+                    }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('barras'));
+                chart.draw(data, options);
+            }
+            function drawPieChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', '');
+                data.addColumn('number', '');
+                Object.keys(real_data).forEach(function (key) {
+                    data.addRow([key, real_data[key]]);
+                });
+                var options = {
+                    title: 'Cantidad de Registros por Cliente'
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('circular'));
+                chart.draw(data, options);
+            }
+
+
+
+        </script>
+
+        <script>
+            function Eliminar(opcion) {
+
+                event.preventDefault();
+
+                Swal.fire({
+                    title: '¿Estas seguro?',
+                    text: "¡No serás capaz de recuperarlo!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                                '¡Eliminado!',
+                                'El empleado ha sido eliminado.',
+                                'success'
+                                ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = opcion.href;
+                            }
+                        });
+                    }
+                })
+            }
+
+            function TiempoBusqueda() {
+                event.preventDefault();
+                let timerInterval
+                Swal.fire({
+                    title: 'Realizando búsqueda',
+                    html: 'Tiempo restante: <b></b> milisegundos.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+
+                    document.formBuscarEmp.submit();
+                })
+            }
+
+
+            function Registrar() {
+
+                event.preventDefault();
+
+                const nom = document.getElementById("nom").value;
+                const ape = document.getElementById("ape").value;
+                const dni = document.getElementById("dni").value;
+                const cel = document.getElementById("cel").value;
+                const dir = document.getElementById("dir").value;
+
+                if (nom == "" || ape == "" || dni == "" || cel == "" || dir == "")
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No pueden haber espacios vacios',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else
+                {
+                    Swal.fire({
+                        title: '¿Quieres registrar el empleado?',
+                        text: "Agregando un nuevo empleado...",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    '¡Guardado!',
+                                    'El empleado ha sido registrado.',
+                                    'success'
+                                    ).then((result) => {
+                                if (result.isConfirmed) {
+                                    const formulario = document.getElementById("formRegistroEmp");
+                                    formulario.submit();
+                                }
+                            });
+                        } else if (result.isDenied) {
+                            Swal.fire('La información no ha sido registrada', '', 'info');
+                        }
+                    });
+                }
+            }
+
+            function Editar() {
+                const exampleModal = document.getElementById('ModalEditar');
+                exampleModal.addEventListener('show.bs.modal', event => {
+                    // Button that triggered the modal
+                    const button = event.relatedTarget;
+
+                    // Datos
+                    const id = button.getAttribute('data-bs-id');
+                    const nom = button.getAttribute('data-bs-nombre');
+                    const ape = button.getAttribute('data-bs-apellido');
+                    const dni = button.getAttribute('data-bs-dni');
+                    const cel = button.getAttribute('data-bs-celular');
+                    const dir = button.getAttribute('data-bs-direccion');
+
+                    // Campos
+                    const campoId = document.getElementById('id');
+                    const campoNom = document.getElementById('nomEm');
+                    const campoApe = document.getElementById('apeEm');
+                    const campoDni = document.getElementById('dniEm');
+                    const campoCel = document.getElementById('celEm');
+                    const campoDir = document.getElementById('dirEm');
+
+                    //Colocar los datos a los datos
+                    campoId.value = id;
+                    campoNom.value = nom;
+                    campoApe.value = ape;
+                    campoDni.value = dni;
+                    campoCel.value = cel;
+                    campoDir.value = dir;
+
+                });
+            }
+
+            function Actualizar() {
+
+                event.preventDefault();
+
+                //const id = document.getElementById("id").value;
+                const nom = document.getElementById("nomEm").value;
+                const ape = document.getElementById("apeEm").value;
+                const dni = document.getElementById("dniEm").value;
+                const cel = document.getElementById("celEm").value;
+                const dir = document.getElementById("dirEm").value;
+
+                if (nom == "" || ape == "" || dni == "" || cel == "" || dir == "")
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No pueden haber espacios vacios',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else
+                {
+                    Swal.fire({
+                        title: '¿Quieres actualizar el empleado?',
+                        text: "Actualizando los datos...",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    '¡Guardado!',
+                                    'El empleado ha sido actualizado.',
+                                    'success'
+                                    ).then((result) => {
+                                if (result.isConfirmed) {
+                                    const formulario = document.getElementById("formActualizarEmp");
+                                    formulario.submit();
+                                }
+                            });
+                        } else if (result.isDenied) {
+                            Swal.fire('La información no ha sido actualizada', '', 'info');
+                        }
+                    });
+                }
+            }
+        </script>
+
+    </head>
+    <body onload="Editar()"; style="background-color: #8EC5FC;background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
+        <div th:insert="menu :: #menu"> </div> 
+
+        <div class="container">
+            <br>
+            <p style="font-family: sans-serif; font-weight: bold">REPORTE</p>
+            <div class="container-fluid">    
+                <div class="row" style="background-color: lightskyblue; text-align: center">             
+                    <div class="col" style="border-bottom: white solid 5px; border-top: white solid 5px; border-left: white solid 5px">
+                        <p style="font-family: cursive; margin-top: 5px">CLIENTES</p>
+                    </div>
+                    <div class="col" style="border-bottom: white solid 5px; border-top: white solid 5px; border-left: white solid 5px">
+                        <p style="font-family: cursive; margin-top: 5px">EMPLEADOS</p>
+                    </div>
+                    <div class="col" style="border-bottom: white solid 5px; border-top: white solid 5px; border-left: white solid 5px; border-right: white solid 5px">
+                        <p style="font-family: cursive; margin-top: 5px">SERVICIOS</p>
+                    </div>
+                </div>
+                <div class="row" style="background-color: gray; text-align: center;border-bottom: white solid 5px; border-left: white solid 5px; border-right: white solid 5px">
+                    <div class="col" style="border-right: white solid 5px">
+                        <br>
+                        <img src="https://www.kindpng.com/picc/m/315-3153791_clientes-png-transparent-png.png" width="100px" height="height" alt="alt"/> 
+                        <p style="font-family: cursive">NRO° CLIENTES:</p>
+                        <input type="text" disabled="disabled" style="background-color: white; text-align: center; width: 30px;font-family: cursive"  th:value="${nroClientes}" name="nroClientes">
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col" style="border-right: white solid 5px">
+                        <br>
+                        <img src="https://st3.depositphotos.com/5532432/17916/v/450/depositphotos_179164942-stock-illustration-courier-vector-icon.jpg" width="100px" height="height" alt="alt"/> 
+                        <p style="font-family: cursive">NRO° EMPLEADOS:</p>
+                        <input type="text" disabled="disabled" style="background-color: white;  text-align: center; width: 30px;font-family: cursive"  th:value="${nroEmpleados}" name="nroEmpleados">
+                        <br>
+                    </div>
+                    <div class="col">
+                        <br>
+                        <img src="https://th.bing.com/th/id/OIP.lsUyBjeblm3HwSIdnc06FwHaHa?pid=ImgDet&rs=1" width="100px" height="height" alt="alt"/> 
+                        <p style="font-family: cursive">NRO° SERVICIOS:</p>
+                        <input type="text" disabled="disabled" style="background-color: white; text-align: center; width: 30px;font-family: cursive"  th:value="${nroServicios}" name="nroServicios">
+                        <br>
+                    </div>                   
+                </div>
+            </div>
+            <div class="container-fluid" style="background-color: khaki">  
+                <div class="row" style="background-color: lightskyblue; text-align: center">             
+                    <div class="col" style="border-bottom: white solid 5px; border-left: white solid 5px;border-right:  white solid 5px">
+                        <p style="font-family: cursive; margin-top: 5px">REGISTROS</p>
+                    </div>
+                </div>
+                <div class="row" style="background-color: gray; text-align: center;border-bottom: white solid 5px; border-left: white solid 5px; border-right: white solid 5px">
+                    <div class="col-2" style="border-right: white solid 5px">
+                        <br>
+                        <img src="https://img2.freepng.es/20180701/gwx/kisspng-document-statistics-medical-record-information-cli-medical-records-5b38aaad3a6327.6113043915304403652392.jpg" width="100px" height="height" alt="alt"/> 
+                        <p style="font-family: cursive">NRO° REGISTROS:</p>
+                        <input type="text" disabled="disabled" style="background-color: white; text-align: center; width: 30px;font-family: cursive"  th:value="${nroRegistros}" name="nroRegistros">
+                        <br>
+                    </div>
+                    <div class="col-3" style="border-right: white solid 5px">
+                        <br>
+                        <div id="circular" style="align-content: center"></div>
+                        <br>
+                    </div>       
+                    <div class="col">
+                        <br>
+                        <div id="barras" style="align-content: center"></div>
+                        <br>
+                    </div>  
+                </div>
+            </div>
+            
+            <div class="container-fluid">  
+                <div class="row" style="background-color: lightskyblue; text-align: center">             
+                    <div class="col" style="border-bottom: white solid 5px; border-left: white solid 5px;border-right:  white solid 5px">
+                        <p style="font-family: cursive; margin-top: 5px">ESTADO FINANCIERO</p>
+                    </div>
+                </div>
+                <div class="row" style="background-color: gray; text-align: center;border-bottom: white solid 5px; border-left: white solid 5px; border-right: white solid 5px">
+                    <div class="col">
+                        <br>
+                        <img src="https://img2.freepng.es/20180701/gwx/kisspng-document-statistics-medical-record-information-cli-medical-records-5b38aaad3a6327.6113043915304403652392.jpg" width="100px" height="height" alt="alt"/> 
+                        <p style="font-family: cursive">GANANCIA TOTAL:</p>
+                        <input type="text" disabled="disabled" style="background-color: white; text-align: center; width: 100px;font-family: cursive"  th:value="${total}" name="total">
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java\\com",
+    "\\src\\main\\java\\com\\example",
+    "\\src\\main\\java\\com\\example\\proyectoSW",
+    "\\src\\main\\resources",
+    "\\src\\main\\resources\\static",
+    "\\src\\main\\resources\\templates",
+    "\\src\\main\\resources\\templates\\Clientes",
+    "\\src\\main\\resources\\templates\\Servicios"
+  ],
+  "SelectedNode": "\\src\\main\\resources\\application.properties",
+  "PreviewInSolutionExplorer": false
+}
