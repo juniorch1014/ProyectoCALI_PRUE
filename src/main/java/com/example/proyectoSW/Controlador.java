@@ -52,7 +52,16 @@ public class Controlador {
     
     @GetMapping("/")
     public String Login(Model model){
-
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros);
         return "login";
     }
     
@@ -94,11 +103,107 @@ public class Controlador {
                 List<Registro> registros = serviceR.Listar();
                 model.addAttribute("registros", registros);
                 
-                return carpeta + "listaRegistros";
+                return "inicio";
             }       
         }
         
         return "login";
     }
+    @PostMapping("/registrarUs")
+    public String RegistrarEmp(@RequestParam("nom") String nom,
+                            @RequestParam("ape") String ape,
+                            @RequestParam("dni") String dni,
+                            @RequestParam("cel") String cel,
+                            @RequestParam("dir") String dir,
+                            @RequestParam("user") String user,
+                            @RequestParam("pass") String pass,
+                            Model model){
+        
+        Empleado e = new Empleado();
+        e.setNombre(nom);
+        e.setApellido(ape);
+        e.setDni(dni);
+        e.setCelular(cel);
+        e.setDireccion(dir);
+        e.setUsuario(user);
+        e.setPassword(pass);
+        
+        serviceE.Guardar(e);
+        return "login";
+    }
+    
+    @PostMapping("/registrarPl")
+    public String RegistrarPl(@RequestParam("emp") Empleado emp,
+            @RequestParam("cli") Cliente cli,
+            @RequestParam("ser") Servicio ser,
+            @RequestParam("dur") int dur,
+            Model model) {
+
+        Registro r = new Registro();
+
+        r.setEmpleado(emp);
+        r.setCliente(cli);
+        r.setServicio(ser);
+        r.setDuracion_serv(dur);
+
+        Calendar fecha = Calendar.getInstance();
+
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH);
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minuto = fecha.get(Calendar.MINUTE);
+        int segundo = fecha.get(Calendar.SECOND);
+
+        String fe = String.valueOf(dia + "/" + mes + "/" + año + " || " + hora + ":" + minuto + ":" + segundo);
+
+        r.setFecha(fe);
+
+        String nombreServicio = r.getServicio().getNombre().toString();
+
+        List<Servicio> servicios = serviceS.Listar();
+        model.addAttribute("servicios", servicios);
+
+        for (int pos = 0; pos < servicios.size(); pos++) {
+            if (servicios.get(pos).getNombre().equals(ser.getNombre())) {
+                float total = dur * servicios.get(pos).getPrecio();
+                r.setCosto_total(total);
+            }
+        }
+
+        serviceR.Guardar(r);
+        return "planesMostrar";
+    }
+    
+    @GetMapping("/inicio")
+    public String inicio(Model model){
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros);        
+        return "inicio";
+    }
+    @GetMapping("/planesMostrar")
+    public String PlanesMostrar(Model model){
+                List<Empleado> empleados=serviceE.Listar();
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros);        
+        return "planesMostrar";
+    }
+   
     
 }

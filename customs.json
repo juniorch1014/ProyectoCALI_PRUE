@@ -1,0 +1,11 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:insert": {
+            "context": "div"
+        },
+        "th:fragment": {
+            "context": "footer"
+        }
+    }
+}
