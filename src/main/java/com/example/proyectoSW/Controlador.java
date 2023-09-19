@@ -50,7 +50,16 @@ public class Controlador {
     
     Empleado aux = new Empleado();
     
+    
     @GetMapping("/")
+    public String Primer_Inicio(Model model){
+        
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+        return  "/ZInicios/primerInicio.html";
+    }
+    
+    @GetMapping("/login")
     public String Login(Model model){
                 model.addAttribute("empleado", aux);
                 
