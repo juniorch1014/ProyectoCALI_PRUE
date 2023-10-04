@@ -51,23 +51,38 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+	 <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+	  <type>jar</type>
+	 </dependency>
+
+	 <dependency>
+	  <groupId>org.hamcrest</groupId>
+	  <artifactId>hamcrest-core</artifactId>
+	  <scope>test</scope>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-test</artifactId>
+	  <version>6.0.11</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.2</version>
+                        <configuration>
+                            <argLine>-Dfile.encoding=UTF-8</argLine> <!-- Puedes ajustar la codificación según tus necesidades -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+
 	</build>
 
 </project>

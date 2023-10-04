@@ -28,7 +28,7 @@ public class Registro {
     private int id;
     private String fecha;
     private int duracion_serv;
-    private float costo_total;
+    private float costo_total;       
     
     @ManyToOne
     @JoinColumn(name="cliente_id")

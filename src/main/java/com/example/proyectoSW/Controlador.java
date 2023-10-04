@@ -213,6 +213,21 @@ public class Controlador {
                 model.addAttribute("registros", registros);        
         return "planesMostrar";
     }
+    @GetMapping("/pageNoticia")
+    public String PageNoticias(Model model){
+                List<Empleado> empleados=serviceE.Listar();
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros);        
+        return  "/ZInicios/pageNoticia.html";
+    }
    
     
 }
