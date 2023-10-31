@@ -1,408 +1,215 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>Inicio</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-        <!--ICONOS-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-        <!--Sweet Alert 2-->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" type="text/css" href="Estilos.css">
-        <script>
-            function Registrar() {
+<html lang="es">
+<head>
+    <title>Inicio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!--ICONOS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!--Sweet Alert 2-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="Estilos.css">
+    <style>
+        /* Estilos CSS para la alineación y el diseño */
+       
 
-                event.preventDefault();
-
-                const emp = document.getElementById("emp").value;
-                const cli = document.getElementById("cli").value;
-                const ser = document.getElementById("ser").value;
-                const dur = document.getElementById("dur").value;
-
-                if (emp == "" || cli == "" || ser == "" || dur == "")
-                {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'No pueden haber espacios vacios',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else
-                {
-                    Swal.fire({
-                        title: '¿Quieres registrar el servicio?',
-                        text: "Agregando un nuevo servicio...",
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Confirmar',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                    '¡Guardado!',
-                                    'El servicio ha sido registrado.',
-                                    'success'
-                                    ).then((result) => {
-                                if (result.isConfirmed) {
-                                    const formulario = document.getElementById("formRegistroReg");
-                                    formulario.submit();
-                                }
-                            });
-                        } else if (result.isDenied) {
-                            Swal.fire('La información no ha sido registrada', '', 'info');
-                        }
-                    });
-                }
+        .video {
+            flex: 1;
+        }
+         /* Media query para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Cambia la dirección de la flexbox para apilar elementos */
             }
-        </script>
-    </head>
-    <!--Encabezado-->
-    <body>
-        
-        <header th:replace = "Zmenus/encabezado :: #encabezado">> 
-        </header>
-    </body>
-    &nbsp;&nbsp;
-    <!--Cuerpo-->
-    <div class="containerI">
-        <div class="video">
-            <video id="volvideo" width="240" height="500" controls autoplay>
-                <source src="video/video.mp4" type="video/mp4">
-                Tu navegador no admite el elemento de video.
-            </video>
-            <script>
-                var video = document.getElementById("volvideo");
-                video.volume = 0;
-            </script>
-        </div>
-        
-        <div class="sidebar">
-            
-            <h2>PLANES</h2>
-            <div class="card" style="width: 200px;" th:with="desiredId=5">
-                <img src="#" width="100" height="200" th:src ="@{/img/logo_1.png}" 
-                             class="card-img-top" alt="card #3"/>
-       
-                <h2> 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.nombre}"></td>
-                </h2>
-                <p> Precio: 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.precio}"></td>
-                </p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal5" 
-                    type="submit" 
-                    class="btn btn-outline-success" 
-                    name="registrar">
-                <i class="bi bi-box-arrow-right"></i> Saber Mas </button>
-                <a href="planesMostrar" class="btn btn-outline-success">Seleccionar</a>
-               
-            </div>
-            &nbsp;&nbsp;
-            <div class="card" style="width: 200px;" th:with="desiredId=6">
-                <img src="#" width="100" height="200" th:src ="@{/img/logo_1.png}" 
-                             class="card-img-top" alt="card #3"/>
-       
-                <h2> 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.nombre}"></td>
-                </h2>
-                <p> Precio: 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.precio}"></td>
-                </p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal6" 
-                    type="submit" 
-                    class="btn btn-outline-success" 
-                    name="registrar">
-                <i class="bi bi-box-arrow-right"></i> Saber Mas </button>
-                <a href="planesMostrar" class="btn btn-outline-success">Seleccionar</a>
-               
-            </div>
-        </div>
-        &nbsp;&nbsp;
-        <div class="sidebar">
-           
-            <h2></h2>
-            &nbsp;
-            <div class="card" style="width: 200px;" th:with="desiredId=7">
-                <img src="#" width="100" height="200" th:src ="@{/img/logo_1.png}" 
-                             class="card-img-top" alt="card #3"/>
-       
-                <h2> 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.nombre}"></td>
-                </h2>
-                <p> Precio: 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.precio}"></td>
-                </p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal7" 
-                    type="submit" 
-                    class="btn btn-outline-success" 
-                    name="registrar">
-                <i class="bi bi-box-arrow-right"></i> Saber Mas </button>
-                <a href="planesMostrar" class="btn btn-outline-success">Seleccionar</a>
-               
-            </div>
-            &nbsp;&nbsp;
-            <div class="card" style="width: 200px;" th:with="desiredId=8">
-                <img src="#" width="100" height="200" th:src ="@{/img/logo_1.png}" 
-                             class="card-img-top" alt="card #3"/>
-       
-                <h2> 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.nombre}"></td>
-                </h2>
-                <p> Precio: 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.precio}"></td>
-                </p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal8" 
-                    type="submit" 
-                    class="btn btn-outline-success" 
-                    name="registrar">
-                <i class="bi bi-box-arrow-right"></i> Saber Mas </button>
-                <a href="planesMostrar" class="btn btn-outline-success">Seleccionar</a>
-               
-            </div>
-        </div>
-        &nbsp;&nbsp;
-        <div class="sidebar">
-            
-            <h2></h2>
-            &nbsp;
-            <div class="card" style="width: 200px;" th:with="desiredId=9">
-                <img src="#" width="100" height="200" th:src ="@{/img/logo_1.png}" 
-                             class="card-img-top" alt="card #3"/>
-       
-                <h2> 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.nombre}"></td>
-                </h2>
-                <p> Precio: 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.precio}"></td>
-                </p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal9" 
-                    type="submit" 
-                    class="btn btn-outline-success" 
-                    name="registrar">
-                <i class="bi bi-box-arrow-right"></i> Saber Mas </button>
-                <a href="planesMostrar" class="btn btn-outline-success">Seleccionar</a>
-               
-            </div>
-            &nbsp;&nbsp;
-            <div class="card" style="width: 200px;" th:with="desiredId=10">
-                <img src="#" width="100" height="200" th:src ="@{/img/logo_1.png}" 
-                             class="card-img-top" alt="card #3"/>
-       
-                <h2> 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.nombre}"></td>
-                </h2>
-                <p> Precio: 
-                      <td th:each="servicio : ${servicios}" th:if="${servicio.id == desiredId}" th:text="${servicio.precio}"></td>
-                </p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal10" 
-                    type="submit" 
-                    class="btn btn-outline-success" 
-                    name="registrar">
-                <i class="bi bi-box-arrow-right"></i> Saber Mas </button>
-                <a href="planesMostrar" class="btn btn-outline-success">Seleccionar</a>
-               
-            </div>
-        </div>
-       
+            .video, .cards {
+                width: 100%; /* Ocupa todo el ancho de la pantalla */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header th:replace = "Zmenus/encabezado :: #encabezado"></header>
+    <div class="container border">
+              <div class="row border">
+                    <div class="col border">1</div>
+                    <div class="col border">2</div>
+                    <div class="col border">3</div>
+                    <div class="col border">4</div>
+                    <div class="col border">5</div>
+                    <div class="col border">6</div>
+                    <div class="col border">7</div>
+                    <div class="col border">8</div>
+                    <div class="col border">9</div>
+                    <div class="col border">10</div>
+                    <div class="col border">11</div>
+                    <div class="col border">12</div>    
+                    <div class="col border">9</div>
+                    <div class="col border">10</div>
+                    <div class="col border">11</div>
+                    <div class="col border">12</div>  
+                </div>
     </div>
     
-    <!-- Modal REGISTRAR -->
-        <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del Plan</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="cuadro " style="height: 480px;" th:each="servicio : ${servicios}" th:if="${servicio.id == 5}">
-                            <h3> 
-                                <td  th:text="${servicio.nombre}"></td>
-                            </h3>
-                            <p> Precio: 
-                                <td  th:text="${servicio.precio}"></td>
-                            </p>
-                            <h3> Rutina </h3>
-                            <h6> Sentadillas con barra:</h6><p> 4 series x 8/10 reps. </p>
-                            <h6> Prensa en máquina: </h6><p> 4 series x 8/10 reps. </p>
-                            <h6> Peso muerto: </h6><p> 4 series x 8/10 reps. </p>
-                            <h6> Zancada con mancuernas: </h6><p> 4 series x 8/10 reps. </p>
-                            <h6> Extensión de gemelos: </h6><p> 4 series x 8/10 reps. </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row py-3">
+        <h1 class="text-center custom-heading" style="font-size: 10vw; font-weight: bold;">
+            <span>PLANES</span><span>FIT</span>
+        </h1>
+        <button class="btn btn-warning" id="editButton" href="@{/servicio/}">
+            <a th:href="@{/servicio/}"> Servicios</a>
+        </button>
+    </div>
     
-        <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del Plan</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="cuadro " style="height: 480px;" th:each="servicio : ${servicios}" th:if="${servicio.id == 6}">
-                            <h3> 
-                                <td  th:text="${servicio.nombre}"></td>
-                            </h3>
-                            <p> Precio: 
-                                <td  th:text="${servicio.precio}"></td>
-                            </p>
-                            <h3> Rurina </h3>
-                            <h6> Sentadillas con barra:</h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Prensa en máquina: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Peso muerto: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Zancada con mancuernas: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Extensión de gemelos: </h6><p> 2 series x 7/10 reps. </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
+    <div class="container py-4">
+            <div class="col-12 col-sm-3">
+                <div class="video">
+                    <video id="volvideo" width="240" height="500" controls autoplay>
+                    <source src="video/video.mp4" type="video/mp4">
+                    Tu navegador no admite el elemento de video.
+                    </video>
+                    <script>
+                        var video = document.getElementById("volvideo");
+                        video.volume = 0;
+                    </script>
+                </div> 
             </div>
-        </div>
+      
+            <div class="sidebar col-12 col-sm-12">
+                    <div id="products"></div>
+                    <div id="pagination"></div>  
+            </div>
+    </div>
+
     
-        <div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del Plan</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="cuadro " style="height: 480px;" th:each="servicio : ${servicios}" th:if="${servicio.id == 7}">
-                            <h3> 
-                                <td  th:text="${servicio.nombre}"></td>
-                            </h3>
-                            <p> Precio: 
-                                <td  th:text="${servicio.precio}"></td>
-                            </p>
-                            <h3> Rurina </h3>
-                            <h6> Sentadillas con barra:</h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Prensa en máquina: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Peso muerto: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Zancada con mancuernas: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Extensión de gemelos: </h6><p> 2 series x 7/10 reps. </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Footer -->
+    <footer th:replace = "Zmenus/piedepagina :: pie"></footer>
+    <script>
+        // Obtén el contenido que viene de /*[[${servicios}]]*/
+        const data = "/*[[${servicios}]]*/";
+
+        // Define una expresión regular para encontrar los objetos de Servicio
+        const servicioRegex = /Servicio\(id=(\d+),\s+nombre=([^,]+),\s+precio=([\d.]+)\)/g;
+
+        // Encuentra y extrae los objetos Servicio en el formato deseado
+        const products = [];
+        let match;
+        while ((match = servicioRegex.exec(data)) !== null) {
+            const id = parseInt(match[1]);
+            const nombre = match[2];
+            const precio = parseFloat(match[3]);
+            products.push({ id, nombre, precio});
+        }
         
-        <div class="modal fade" id="exampleModal8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del Plan</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="cuadro " style="height: 480px;" th:each="servicio : ${servicios}" th:if="${servicio.id == 8}">
-                            <h3> 
-                                <td  th:text="${servicio.nombre}"></td>
-                            </h3>
-                            <p> Precio: 
-                                <td  th:text="${servicio.precio}"></td>
-                            </p>
-                            <h3> Rurina </h3>
-                            <h6> Sentadillas con barra:</h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Prensa en máquina: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Peso muerto: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Zancada con mancuernas: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Extensión de gemelos: </h6><p> 2 series x 7/10 reps. </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <div class="modal fade" id="exampleModal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del Plan</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="cuadro " style="height: 480px;" th:each="servicio : ${servicios}" th:if="${servicio.id == 9}">
-                            <h3> 
-                                <td  th:text="${servicio.nombre}"></td>
-                            </h3>
-                            <p> Precio: 
-                                <td  th:text="${servicio.precio}"></td>
-                            </p>
-                            <h3> Rutina </h3>
-                            <h6> Sentadillas con barra:</h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Prensa en máquina: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Peso muerto: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Zancada con mancuernas: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Extensión de gemelos: </h6><p> 2 series x 7/10 reps. </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <div class="modal fade" id="exampleModal10" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del Plan</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="cuadro " style="height: 480px;" th:each="servicio : ${servicios}" th:if="${servicio.id == 10}">
-                            <h3> 
-                                <td  th:text="${servicio.nombre}"></td>
-                            </h3>
-                            <p> Precio: 
-                                <td  th:text="${servicio.precio}"></td>
-                            </p>
-                            <h3> Rurina </h3>
-                            <h6> Sentadillas con barra:</h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Prensa en máquina: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Peso muerto: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Zancada con mancuernas: </h6><p> 2 series x 7/10 reps. </p>
-                            <h6> Extensión de gemelos: </h6><p> 2 series x 7/10 reps. </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-    
-    
-    
-    
-    <!--Pie de página-->
-    <footer th:replace = "Zmenus/piedepagina :: pie">
-            
-    </footer>
-    
+        const productsPerPage = 3;
+        let currentPage = 1;
+
+        function showProducts(page) {
+            const productsContainer = document.getElementById("products");
+            productsContainer.innerHTML = "";
+
+            const startIndex = (page - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+
+            for (let i = startIndex; i < endIndex && i < products.length; i++) {
+                const product = products[i];
+                
+                
+                const card = document.createElement("div");
+                card.className = "card col-12 col-sm-4";
+               // card.width = "200px"
+
+                const image = document.createElement("img");
+                //image.src = product.imageUrl;
+                image.className = "card-img-top";
+                image.src = "/img/logo_1.png";
+              
+                
+                
+                const name = document.createElement("h2");
+                name.className = "card-title";
+                name.textContent = product.nombre;
+
+                const description = document.createElement("p");
+                //description.textContent = product.description;
+                description.className = "card-text";
+                description.textContent = "GYM XTREMFIT";
+
+                const cost = document.createElement("p");
+                cost.className = "card-text";
+                cost.textContent = "S/. " + product.precio;
+                
+                const boton1 = document.createElement("button");
+                boton1.className = "btn btn-outline-success";
+                boton1.textContent = "Seleccionar";
+                
+                card.appendChild(image);
+                card.appendChild(name);
+                card.appendChild(description);
+                card.appendChild(cost);
+                card.appendChild(boton1);
+
+                productsContainer.appendChild(card);
+            }
+        }
+
+        function updatePagination() {
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            const totalPages = Math.ceil(products.length / productsPerPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                pageButton.addEventListener("click", () => {
+                    currentPage = i;
+                    showProducts(currentPage);
+                    updatePagination();
+                });
+                pagination.appendChild(pageButton);
+            }
+        }
+
+        showProducts(currentPage);
+        updatePagination();
+    </script>
+    <script>
+        const usuarioData = "/*[[${empleado}]]*/";
+        // Define una expresión regular para encontrar los objetos de Empleado
+        const usuarioRegex = /Empleado\(id=(\d+),\s+dni=(\d+),\s+nombre=([^,]+),\s+apellido=([^,]+),\s+direccion=([^,]+),\s+celular=(\d+),\s+usuario=([^,]+),\s+password=([^)]+)\)/g;
+        
+        const usuarios = [];
+            let usuarioMatch;
+            while ((usuarioMatch = usuarioRegex.exec(usuarioData)) !== null) {
+                const id = parseInt(usuarioMatch[1]);
+                const dni = usuarioMatch[2];
+                const nombre = usuarioMatch[3];
+                const apellido = usuarioMatch[4];
+                const direccion = usuarioMatch[5];
+                const celular = usuarioMatch[6];
+                const usuario = usuarioMatch[7];
+                const password = usuarioMatch[8];
+                usuarios.push({ id, dni, nombre, apellido, direccion, celular, usuario, password});
+        }
+        
+        function OcultarBotonUsuario(){
+            const editButton = document.getElementById("editButton");
+            if(usuarios[0].id === 1){
+                editButton.style.display = "block";
+            }else{
+                editButton.style.display = "none";
+            }
+        }
+        function alSalir(){
+            const alSalirButton = document.getElementById("editButton");
+            alSalirButton.style.display = "none";
+        }
+        // Llama a la función al cargar la página
+        window.onload = OcultarBotonUsuario();
+       // window.onclose = alSalir();
+        
+    </script>
+</body>
 </html>

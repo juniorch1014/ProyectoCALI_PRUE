@@ -4,141 +4,28 @@
  */
 package com.example.proyectoSW;
 
-import com.example.proyectoSW.Cliente.Cliente;
-import com.example.proyectoSW.Empleado.Empleado;
-import com.example.proyectoSW.Servicio.Servicio;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-/**
- *
- * @author LN_JCHG
- */
-@RunWith(JUnit4.class)
+@RunWith(SpringRunner.class)
+@WebMvcTest(Controlador.class) // Anotación para pruebas de controlador
 public class ControladorTest {
-    
-    public ControladorTest() {
-    }
 
-    /**
-     * Test of Primer_Inicio method, of class Controlador.
-     */
-    @Test
-    public void testPrimer_Inicio() {
-        System.out.println("Primer_Inicio");
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "/ZInicios/primerInicio.html";
-        String result = instance.Primer_Inicio(model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    @Autowired
+    private MockMvc mockMvc;
 
-    /**
-     * Test of Login method, of class Controlador.
-     */
     @Test
-    public void testLogin() {
-        System.out.println("Login");
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "";
-        String result = instance.Login(model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testPrimerInicio() throws Exception {
+        mockMvc.perform(get("/")) // Realiza una solicitud GET a la ruta "/"
+               .andExpect(status().isOk()) // Espera una respuesta HTTP exitosa (código 200)
+               .andExpect(view().name("/ZInicios/primerInicio.html")); // Espera que la vista sea la especificada
     }
-
-    /**
-     * Test of Ingresar method, of class Controlador.
-     */
-    @Test
-    public void testIngresar() {
-        System.out.println("Ingresar");
-        String user = "";
-        String pass = "";
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "";
-        String result = instance.Ingresar(user, pass, model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of RegistrarEmp method, of class Controlador.
-     */
-    @Test
-    public void testRegistrarEmp() {
-        System.out.println("RegistrarEmp");
-        String nom = "";
-        String ape = "";
-        String dni = "";
-        String cel = "";
-        String dir = "";
-        String user = "";
-        String pass = "";
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "";
-        String result = instance.RegistrarEmp(nom, ape, dni, cel, dir, user, pass, model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of RegistrarPl method, of class Controlador.
-     */
-    @Test
-    public void testRegistrarPl() {
-        System.out.println("RegistrarPl");
-        Empleado emp = null;
-        Cliente cli = null;
-        Servicio ser = null;
-        int dur = 0;
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "";
-        String result = instance.RegistrarPl(emp, cli, ser, dur, model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of inicio method, of class Controlador.
-     */
-    @Test
-    public void testInicio() {
-        System.out.println("inicio");
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "";
-        String result = instance.inicio(model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of PlanesMostrar method, of class Controlador.
-     */
-    @Test
-    public void testPlanesMostrar() {
-        System.out.println("PlanesMostrar");
-        Model model = null;
-        Controlador instance = new Controlador();
-        String expResult = "";
-        String result = instance.PlanesMostrar(model);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
+

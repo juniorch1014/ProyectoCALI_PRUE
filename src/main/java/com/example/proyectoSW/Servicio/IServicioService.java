@@ -6,6 +6,7 @@ package com.example.proyectoSW.Servicio;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface IServicioService {
     public List<Servicio> Buscar(String dato);
     public List<Servicio> OrdenAscendente();
     public List<Servicio> OrdenDescendente();
+   // public Page<Servicio> getServiciosPaginados(int page, int pageSize);
 }

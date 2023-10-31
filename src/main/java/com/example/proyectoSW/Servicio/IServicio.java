@@ -5,6 +5,8 @@
 package com.example.proyectoSW.Servicio;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -21,4 +23,6 @@ public interface IServicio extends CrudRepository<Servicio,Integer>{
     
     @Query(value="SELECT * FROM servicio ORDER BY nombre DESC",nativeQuery=true)
     List<Servicio> OrderDescServ();
+
+    public Page<Servicio> findAll(Pageable pageable);
 }

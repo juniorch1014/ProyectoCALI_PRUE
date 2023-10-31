@@ -3,15 +3,13 @@ body
     background-color: white;
 }
 
-.containerI {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
+.container {
+        display: flex;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
 }
-.video {
-    flex: 0;
-    margin-right: 20px;
-}
+
         
 .sidebar {
     flex: 1;
@@ -26,4 +24,43 @@ body
     width: 350px;
     height: 400px;
     text-align:  left;
+}
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 30%;
+    display: inline-block;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 10px;
+}
+.cards {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Monoton&family=Nothing+You+Could+Do&family=Young+Serif&family=Zeyada&display=swap');
+/* Estilos para la clase 'custom-heading' */
+.custom-heading {
+    text-align: center; /* Alineación del texto al centro */
+}
+
+/* Estilos para los 'span' dentro de 'custom-heading' */
+.custom-heading span {
+    font-family: 'Marcellus SC', serif; /* Cambia "TuTipoDeLetraAtractivo" por el tipo de letra deseado */
+    color: black; /* XTREM en negro */
+}
+.custom-heading span1 {
+    font-family: 'Young Serif', serif; /* Cambia "TuTipoDeLetraAtractivo" por el tipo de letra deseado */
+    color: white; /* XTREM en negro */
+}
+
+/* Estilos para el segundo 'span' dentro de 'custom-heading' */
+.custom-heading span:last-child {
+    color: red; /* FIT en rojo */
 }

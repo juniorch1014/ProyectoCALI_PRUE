@@ -61,16 +61,7 @@ public class Controlador {
     
     @GetMapping("/login")
     public String Login(Model model){
-                model.addAttribute("empleado", aux);
                 
-                List<Cliente> clientes = serviceC.Listar();
-                model.addAttribute("clientes", clientes);
-                
-                List<Servicio> servicios = serviceS.Listar();
-                model.addAttribute("servicios", servicios);
-                
-                List<Registro> registros = serviceR.Listar();
-                model.addAttribute("registros", registros);
         return "login";
     }
     
@@ -200,7 +191,7 @@ public class Controlador {
     }
     @GetMapping("/planesMostrar")
     public String PlanesMostrar(Model model){
-                List<Empleado> empleados=serviceE.Listar();
+         
                 model.addAttribute("empleado", aux);
                 
                 List<Cliente> clientes = serviceC.Listar();
@@ -228,6 +219,35 @@ public class Controlador {
                 model.addAttribute("registros", registros);        
         return  "/ZInicios/pageNoticia.html";
     }
-   
+    @GetMapping("/pageRecomendacion")
+    public String PageRecomendaciones(Model model){
+                List<Empleado> empleados=serviceE.Listar();
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros);        
+        return  "/ZInicios/pageRecomendacion.html";
+    }
+    @GetMapping("/pageCalendario")
+    public String Pagecalendario(Model model){
+                List<Empleado> empleados=serviceE.Listar();
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros);        
+        return  "/ZInicios/pageCalendario.html";
+    }
     
 }

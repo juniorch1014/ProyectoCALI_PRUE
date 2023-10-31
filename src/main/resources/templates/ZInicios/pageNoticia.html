@@ -72,22 +72,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <header th:replace = "ZInicios/cabecerainicio :: #cabecerainicio"></header>
-        <div class="container border">
-            <div class="row border">
-                <div class="col border">1</div>
-                <div class="col border">2</div>
-                <div class="col border">3</div>
-                <div class="col border">4</div>
-                <div class="col border">5</div>
-                <div class="col border">6</div>
-                <div class="col border">7</div>
-                <div class="col border">8</div>
-                <div class="col border">9</div>
-                <div class="col border">10</div>
-                <div class="col border">11</div>
-                <div class="col border">12</div>
-                
-            </div>
+<!--    <div class="container border">
+              <div class="row border">
+                    <div class="col border">1</div>
+                    <div class="col border">2</div>
+                    <div class="col border">3</div>
+                    <div class="col border">4</div>
+                    <div class="col border">5</div>
+                    <div class="col border">6</div>
+                    <div class="col border">7</div>
+                    <div class="col border">8</div>
+                    <div class="col border">9</div>
+                    <div class="col border">10</div>
+                    <div class="col border">11</div>
+                    <div class="col border">12</div>    
+                </div>-->
             <!-- Titulo -->
             <div class="row py-3">
               <h1 class="text-center custom-heading" style="font-size: 10vw; font-weight: bold;">
@@ -139,83 +138,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             </div>
             <!---------------------->
-            <!-- FITNESS -->
-            <div class="row py-4">
-              <h3 class="text-bg-dark custom-heading"  style="font-size: 5vw; font-weight: bold;">
-                  <span1>NOTICIAS</span1><span> Fitness</span>
-              </h3>
-            <!-- CARD NOTICIA -->
-              <div class="col-12 col-sm-4">
-                <div class="card" style="max-width: 90%; margin: 0 auto;">
-                  <img src="#" id="imagen-noticiaF0" class="card-img-top" alt="Imagen de la noticia"/>
-                  <div class="card-body">
-                      <p class="card-text">Fecha de actualización: <span id="fecha-actualizacionF0"></span></p>
-                      <h5 class="card-title" id="titulo-noticiaF0">Noticia de Fitness</h5>
-                      <p class="card-text" id="contenido-noticiaF0">Cargando noticias...</p>
-                      <p class="card-text" id="descripcion-noticiaF0"></p>
-                      <div class="form-group">
-                          <label for="categoria-noticias">Selecciona una categoría:</label>
-                          <select class="form-control" id="categoria-noticias">
-                              <option value="fitness">Fitness</option>
-                              <!-- <option value="salud">Salud</option>
-                              <option value="nutricion">Nutrición</option>
-                              <option value="gimnasio">Gimnasio</option> -->
-                          </select>
-                      </div>
-                      <a href="#" class="btn btn-warning" id="boton-actualizar">Actualizar Noticia</a>
-                      <a href="#" class="btn btn-primary" id="boton-ver-noticia">Ver Noticia Completa</a>
-                  </div>
-                </div>
-              </div>
-            <!--FIN CARD NOTICA-->
-            <!-- CARD NOTICIA -->
-              <div class="col-12 col-sm-4">
-                <div class="card" style="max-width: 90%; margin: 0 auto;">
-                  <img src="#" id="imagen-noticiaF1" class="card-img-top" alt="Imagen de la noticia"/>
-                  <div class="card-body">
-                      <p class="card-text">Fecha de actualización: <span id="fecha-actualizacionF1"></span></p>
-                      <h5 class="card-title" id="titulo-noticia1F1">Noticia de Fitness</h5>
-                      <p class="card-text" id="contenido-noticiaF1">Cargando noticias...</p>
-                      <p class="card-text" id="descripcion-noticiaF1"></p>
-                      <div class="form-group">
-                          <label for="categoria-noticias">Selecciona una categoría:</label>
-                          <select class="form-control" id="categoria-noticias">
-                              <option value="fitness">Fitness</option>
-                              <!-- <option value="salud">Salud</option>
-                              <option value="nutricion">Nutrición</option>
-                              <option value="gimnasio">Gimnasio</option> -->
-                          </select>
-                      </div>
-                      <a href="#" class="btn btn-warning" id="boton-actualizar">Actualizar Noticia</a>
-                      <a href="#" class="btn btn-primary" id="boton-ver-noticia">Ver Noticia Completa</a>
-                  </div>
-                </div>
-              </div>
-            <!--FIN CARD NOTICA-->
-            <!-- CARD NOTICIA -->
-              <div class="col-12 col-sm-4">
-                <div class="card" style="max-width: 90%; margin: 0 auto;">
-                  <img src="#" id="imagen-noticiaF2" class="card-img-top" alt="Imagen de la noticia"/>
-                  <div class="card-body">
-                      <p class="card-text">Fecha de actualización: <span id="fecha-actualizacionF2"></span></p>
-                      <h5 class="card-title" id="titulo-noticiaF2">Noticia de Fitness</h5>
-                      <p class="card-text" id="contenido-noticiaF2">Cargando noticias...</p>
-                      <p class="card-text" id="descripcion-noticiaF2"></p>
-                      <div class="form-group">
-                          <label for="categoria-noticiasS">Selecciona una categoría:</label>
-                          <select class="form-control" id="categoria-noticias">
-                              <option value="fitness">Fitness</option>
-                              <!-- <option value="salud">Salud</option>
-                              <option value="nutricion">Nutrición</option>
-                              <option value="gimnasio">Gimnasio</option> -->
-                          </select>
-                      </div>
-                      <a href="#" class="btn btn-warning" id="boton-actualizar">Actualizar Noticia</a>
-                      <a href="#" class="btn btn-primary" id="boton-ver-noticia">Ver Noticia Completa</a>
-                  </div>
-                </div>
-              </div>
-            <!--FIN CARD NOTICA-->
+
             <!-- SALUD -->
             <div class="row py-4">
               <h3 class="text-bg-dark custom-heading"  style="font-size: 5vw; font-weight: bold;">
@@ -370,6 +293,85 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
               </div>
             <!--FIN CARD NOTICA-->
+                        <!-- FITNESS -->
+            <div class="row py-4">
+              <h3 class="text-bg-dark custom-heading"  style="font-size: 5vw; font-weight: bold;">
+                  <span1>NOTICIAS</span1><span> Fitness</span>
+              </h3>
+            <!-- CARD NOTICIA -->
+              <div class="col-12 col-sm-4">
+                <div class="card" style="max-width: 90%; margin: 0 auto;">
+                  <img src="#" id="imagen-noticiaF0" class="card-img-top" alt="Imagen de la noticia"/>
+                  <div class="card-body">
+                      <p class="card-text">Fecha de actualización: <span id="fecha-actualizacionF0"></span></p>
+                      <h5 class="card-title" id="titulo-noticiaF0">Noticia de Fitness</h5>
+                      <p class="card-text" id="contenido-noticiaF0">Cargando noticias...</p>
+                      <p class="card-text" id="descripcion-noticiaF0"></p>
+                      <div class="form-group">
+                          <label for="categoria-noticias">Selecciona una categoría:</label>
+                          <select class="form-control" id="categoria-noticias">
+                              <option value="fitness">Fitness</option>
+                              <!-- <option value="salud">Salud</option>
+                              <option value="nutricion">Nutrición</option>
+                              <option value="gimnasio">Gimnasio</option> -->
+                          </select>
+                      </div>
+                      <a href="#" class="btn btn-warning" id="boton-actualizar">Actualizar Noticia</a>
+                      <a href="#" class="btn btn-primary" id="boton-ver-noticia">Ver Noticia Completa</a>
+                  </div>
+                </div>
+              </div>
+            <!--FIN CARD NOTICA-->
+            <!-- CARD NOTICIA -->
+              <div class="col-12 col-sm-4">
+                <div class="card" style="max-width: 90%; margin: 0 auto;">
+                  <img src="#" id="imagen-noticiaF1" class="card-img-top" alt="Imagen de la noticia"/>
+                  <div class="card-body">
+                      <p class="card-text">Fecha de actualización: <span id="fecha-actualizacionF1"></span></p>
+                      <h5 class="card-title" id="titulo-noticia1F1">Noticia de Fitness</h5>
+                      <p class="card-text" id="contenido-noticiaF1">Cargando noticias...</p>
+                      <p class="card-text" id="descripcion-noticiaF1"></p>
+                      <div class="form-group">
+                          <label for="categoria-noticias">Selecciona una categoría:</label>
+                          <select class="form-control" id="categoria-noticias">
+                              <option value="fitness">Fitness</option>
+                              <!-- <option value="salud">Salud</option>
+                              <option value="nutricion">Nutrición</option>
+                              <option value="gimnasio">Gimnasio</option> -->
+                          </select>
+                      </div>
+                      <a href="#" class="btn btn-warning" id="boton-actualizar">Actualizar Noticia</a>
+                      <a href="#" class="btn btn-primary" id="boton-ver-noticia">Ver Noticia Completa</a>
+                  </div>
+                </div>
+              </div>
+            <!--FIN CARD NOTICA-->
+            <!-- CARD NOTICIA -->
+              <div class="col-12 col-sm-4">
+                <div class="card" style="max-width: 90%; margin: 0 auto;">
+                  <img src="#" id="imagen-noticiaF2" class="card-img-top" alt="Imagen de la noticia"/>
+                  <div class="card-body">
+                      <p class="card-text">Fecha de actualización: <span id="fecha-actualizacionF2"></span></p>
+                      <h5 class="card-title" id="titulo-noticiaF2">Noticia de Fitness</h5>
+                      <p class="card-text" id="contenido-noticiaF2">Cargando noticias...</p>
+                      <p class="card-text" id="descripcion-noticiaF2"></p>
+                      <div class="form-group">
+                          <label for="categoria-noticiasS">Selecciona una categoría:</label>
+                          <select class="form-control" id="categoria-noticias">
+                              <option value="fitness">Fitness</option>
+                              <!-- <option value="salud">Salud</option>
+                              <option value="nutricion">Nutrición</option>
+                              <option value="gimnasio">Gimnasio</option> -->
+                          </select>
+                      </div>
+                      <a href="#" class="btn btn-warning" id="boton-actualizar">Actualizar Noticia</a>
+                      <a href="#" class="btn btn-primary" id="boton-ver-noticia">Ver Noticia Completa</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--FIN CARD NOTICA-->
             </div>
             <!----------------------------------------------->
         </div>
@@ -383,7 +385,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
               //bd0054429ae011c3904e01dbdddcd274
               //37fed02fb16545fcaefb56a90d1aa806
               // Variables para almacenar la categoría seleccionada y la URL de la noticia completa.
-              let categoriaSeleccionada0 = 'fitness';
+                let categoriaSeleccionada0 = 'fitness';
                 let urlNoticiaCompleta0 = '';
 
                 // Función para obtener y mostrar una noticia de la categoría seleccionada desde la API.

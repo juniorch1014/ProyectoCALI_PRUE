@@ -20,7 +20,7 @@ public class ControladorEmpleado {
     String carpeta="Empleados/";
     
     @Autowired
-    private IEmpleadoService serviceE;
+    public IEmpleadoService serviceE;
     
     @GetMapping("/")
     public String MostrarEmp(Model model){
