@@ -132,13 +132,24 @@ public class Controlador {
         return "login";
     }
     
-    @PostMapping("/registrarPl")
-    public String RegistrarPl(@RequestParam("emp") Empleado emp,
+    @PostMapping("/registrarPlan")
+    public String RegistrarPlan(@RequestParam("emp") Empleado emp,
             @RequestParam("cli") Cliente cli,
             @RequestParam("ser") Servicio ser,
             @RequestParam("dur") int dur,
             Model model) {
-
+        
+                model.addAttribute("empleado", aux);
+                
+                List<Cliente> clientes = serviceC.Listar();
+                model.addAttribute("clientes", clientes);
+                
+                List<Servicio> servicios = serviceS.Listar();
+                model.addAttribute("servicios", servicios);
+                
+                List<Registro> registros = serviceR.Listar();
+                model.addAttribute("registros", registros); 
+        
         Registro r = new Registro();
 
         r.setEmpleado(emp);
@@ -161,8 +172,6 @@ public class Controlador {
 
         String nombreServicio = r.getServicio().getNombre().toString();
 
-        List<Servicio> servicios = serviceS.Listar();
-        model.addAttribute("servicios", servicios);
 
         for (int pos = 0; pos < servicios.size(); pos++) {
             if (servicios.get(pos).getNombre().equals(ser.getNombre())) {

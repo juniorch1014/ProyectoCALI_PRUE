@@ -19,7 +19,10 @@ public class Asistencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String fecha;
+    private String hora;
+    private String dia;
+    private String mes;
+    private String año;
     private int estado;
     
     @ManyToOne

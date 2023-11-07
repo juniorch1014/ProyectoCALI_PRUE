@@ -64,3 +64,29 @@ body
 .custom-heading span:last-child {
     color: red; /* FIT en rojo */
 }
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+#login-status {
+    display: inline-block;
+}
+
+
+/* Estilos para días verdes */
+.green {
+    background-color: green !important;
+    color: white !important;
+}
+
+/* Estilos para días rojos */
+.red {
+    background-color: red !important;
+    color: white !important;
+}

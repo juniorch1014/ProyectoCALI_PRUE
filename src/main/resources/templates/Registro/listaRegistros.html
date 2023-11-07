@@ -36,30 +36,30 @@
                             }
                         });
                     }
-                })
+                });
             }
             function TiempoBusqueda() {
                 event.preventDefault();
-                let timerInterval
+                let timerInterval;
                 Swal.fire({
                     title: 'Realizando búsqueda',
                     html: 'Tiempo restante: <b></b> milisegundos.',
                     timer: 2000,
                     timerProgressBar: true,
                     didOpen: () => {
-                        Swal.showLoading()
-                        const b = Swal.getHtmlContainer().querySelector('b')
+                        Swal.showLoading();
+                        const b = Swal.getHtmlContainer().querySelector('b');
                         timerInterval = setInterval(() => {
-                            b.textContent = Swal.getTimerLeft()
-                        }, 100)
+                            b.textContent = Swal.getTimerLeft();
+                        }, 100);
                     },
                     willClose: () => {
-                        clearInterval(timerInterval)
+                        clearInterval(timerInterval);
                     }
                 }).then((result) => {
                     /* Read more about handling dismissals below */
                     if (result.dismiss === Swal.DismissReason.timer) {
-                        console.log('I was closed by the timer')
+                        console.log('I was closed by the timer');
                     }
 
                     document.formBuscarReg.submit();
@@ -74,7 +74,7 @@
                 const ser = document.getElementById("ser").value;
                 const dur = document.getElementById("dur").value;
 
-                if (emp == "" || cli == "" || ser == "" || dur == "")
+                if (emp === "" || cli === "" || ser == "" || dur === "")
                 {
                     Swal.fire({
                         icon: 'error',
@@ -151,7 +151,7 @@
                 const ser = document.getElementById("serx").value;
                 const dur = document.getElementById("durx").value;
 
-                if (emp == "" || cli == "" || ser == "" || dur == "")
+                if (emp === "" || cli === "" || ser === "" || dur === "")
                 {
                     Swal.fire({
                         icon: 'error',

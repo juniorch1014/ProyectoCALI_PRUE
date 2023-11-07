@@ -15,7 +15,10 @@ public interface AsistenciaRepository extends CrudRepository<Asistencia, Integer
     @Query(value = " SELECT * FROM asistencia "
             + " INNER JOIN empleado ON asistencia.usuario_id = empleado.id "
             + " WHERE empleado.nombre LIKE %?1% "
-            + " OR fecha  LIKE %?1% "
+            + " OR hora  LIKE %?1% "
+            + " OR dia LIKE %?1% "
+            + " OR mes LIKE %?1% "
+            + " OR año LIKE %?1% "
             + " OR estado LIKE %?1% ", nativeQuery = true)
     List<Asistencia> buscarPorTodo(String dato);
     

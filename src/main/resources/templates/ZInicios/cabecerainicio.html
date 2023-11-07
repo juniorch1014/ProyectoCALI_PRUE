@@ -23,6 +23,11 @@
                     
                     &nbsp;&nbsp;
                     <li class="nav-item">
+                        <a class="btn btn-outline-light" aria-current="page" th:href="@{/inicio}"><i></i> Perfil </a>
+                    </li>
+                    
+                    &nbsp;&nbsp;
+                    <li class="nav-item">
                         <a class="btn btn-outline-light" aria-current="page" th:href="@{/planesMostrar}"><i></i> Planes </a>
                     </li>
                     &nbsp;&nbsp;
@@ -32,6 +37,10 @@
                     &nbsp;&nbsp;
                     <li class="nav-item">
                         <a class="btn btn-outline-light" aria-current="page" th:href="@{/pageRecomendacion}"><i class="bi bi-person-lines-fill"></i> Recomendaciones</a>
+                    </li>
+                    &nbsp;&nbsp;
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" aria-current="page" th:href="@{/pageCalendario}"><i class="bi bi-person-lines-fill"></i> Calendario</a>
                     </li>
 <!--                    &nbsp;&nbsp;
                     <li class="nav-item">
@@ -49,7 +58,7 @@
             </div>
             <a class="navbar-brand" th:href="@{/login}">
         
-                <i class="bi bi-box-arrow-right"> Iniciar Sesión</i>
+                <i id="login-linkIC"></i>
   
             </a>
             
