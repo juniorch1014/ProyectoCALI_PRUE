@@ -183,6 +183,10 @@ public class Controlador {
         serviceR.Guardar(r);
         return "planesMostrar";
     }
+    @PostMapping("/registrarAasistencia")
+    public String RegistrarAsist(){
+        return "pageCalendario";
+    }
     
     @GetMapping("/inicio")
     public String inicio(Model model){

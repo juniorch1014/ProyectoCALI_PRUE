@@ -1,29 +1,45 @@
 body
 {
     background-color: white;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .container {
-        display: flex;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+.contenedor-principal {
+  display: flex;
+}
+
+.contenedor {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  text-align:center;
+  
+}
         
 .sidebar {
     flex: 1;
     background-color: whitesmoke;
-    padding: 50px;
+    padding: 30px;
     
 }
 .cuadro {
     border: 2px solid black;
     padding: 20px;
     background-color: white;
-    width: 350px;
-    height: 400px;
+
+    height: 350px;
     text-align:  left;
+
 }
 .card {
     border: 1px solid #ccc;

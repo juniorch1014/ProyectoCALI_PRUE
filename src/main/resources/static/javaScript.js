@@ -49,101 +49,119 @@ document.addEventListener("DOMContentLoaded", function() {
   
 //////////////////////////////////////////////////////
 //////////////CALENDARIO/////////////////////////////
-function buildCalendar(year, month) {
-    const calendar = document.getElementById("calendar");
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
+/////////////////////////////////////////////////////
+    function buildCalendar(year, month) {
+        const calendar = document.getElementById("calendar");
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
 
-    const table = document.createElement("table");
-    const tableBody = document.createElement("tbody");
+        const table = document.createElement("table");
+        const tableBody = document.createElement("tbody");
 
-    // Encabezados de días de la semana
-    const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-    const headerRow = document.createElement("tr");
-    daysOfWeek.forEach(day => {
-        const th = document.createElement("th");
-        th.textContent = day;
-        headerRow.appendChild(th);
-    });
-    tableBody.appendChild(headerRow);
-
-    let currentDay = 1;
-    for (let week = 0; currentDay <= daysInMonth; week++) {
-        const row = document.createElement("tr");
-        for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-            if (week === 0 && dayOfWeek < firstDayOfMonth) {
-                // Celdas vacías al principio del primer día de la semana
-                const emptyCell = document.createElement("td");
-                row.appendChild(emptyCell);
-            } else if (currentDay <= daysInMonth) {
-                // Celdas con días del mes
-                const cell = document.createElement("td");
-                cell.textContent = currentDay;
-                cell.className = "calendar-day";
-                row.appendChild(cell);
-                currentDay++;
-            } else {
-                // Celdas vacías al final de la última semana
-                const emptyCell = document.createElement("td");
-                row.appendChild(emptyCell);
-            }
-        }
-        tableBody.appendChild(row);
-    }
-
-    table.appendChild(tableBody);
-    calendar.appendChild(table);
-    return table;
-}
-
-// Función para alternar clases de estilo al hacer clic en los días
-function toggleDayColor(dayElement) {
-
-    if (dayElement.classList.contains("green")) {
-        dayElement.classList.remove("green");
-        dayElement.classList.add("red");
-    } else if (dayElement.classList.contains("red")) {
-        dayElement.classList.remove("red");
-    } else {
-        dayElement.classList.add("green");
-    }
-}
-
-// Función para generar el calendario dinámico
-function generateCalendar(year, month) {
-    const calendar = document.getElementById("calendar");
-    const currentMonthName = monthNames[month];
-    const monthTitle = document.getElementById("month-title");
-    monthTitle.textContent = "Mes Actual: " + currentMonthName;
-
-    // Construir el calendario y obtener la tabla creada
-    const table = buildCalendar(year, month);
-
-    // Agregar eventos de clic a los días del calendario
-    const dayElements = table.querySelectorAll(".calendar-day");
-    dayElements.forEach((dayElement) => {
-        dayElement.addEventListener("click", () => {
-            toggleDayColor(dayElement);
+        // Encabezados de días de la semana
+        const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const headerRow = document.createElement("tr");
+        daysOfWeek.forEach(day => {
+            const th = document.createElement("th");
+            th.textContent = day;
+            headerRow.appendChild(th);
         });
-    });
+        tableBody.appendChild(headerRow);
 
-    // Limpiar el contenido del calendario y agregar el nuevo
-    calendar.innerHTML = "";
-    calendar.appendChild(table);
-}
+        let currentDay = 1;
+        for (let week = 0; currentDay <= daysInMonth; week++) {
+            const row = document.createElement("tr");
+            for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+                if (week === 0 && dayOfWeek < firstDayOfMonth) {
+                    // Celdas vacías al principio del primer día de la semana
+                    const emptyCell = document.createElement("td");
+                    row.appendChild(emptyCell);
+                } else if (currentDay <= daysInMonth) {
+                    // Celdas con días del mes
+                    const cell = document.createElement("td");
+                    cell.textContent = currentDay;
+                    cell.className = "calendar-day";
+                    row.appendChild(cell);
+                    currentDay++;
+                } else {
+                    // Celdas vacías al final de la última semana
+                    const emptyCell = document.createElement("td");
+                    row.appendChild(emptyCell);
+                }
+            }
+            tableBody.appendChild(row);
+        }
 
-// Obtener la fecha actual
-const currentDate = new Date();
-const currentYear = currentDate.getFullYear();
-const currentMonth = currentDate.getMonth();
+        table.appendChild(tableBody);
+        calendar.appendChild(table);
+        return table;
+    }
 
-// Nombres de los meses
-const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    // Función para alternar clases de estilo al hacer clic en los días
+    function toggleDayColor(dayElement) {
 
-// Generar el calendario para el mes actual
-generateCalendar(currentYear, currentMonth);
- 
-        
-        
+        if (dayElement.classList.contains("green")) {
+            dayElement.classList.remove("green");
+            dayElement.classList.add("red");
+        } else if (dayElement.classList.contains("red")) {
+            dayElement.classList.remove("red");
+        } else {
+            dayElement.classList.add("green");
+        }
+    }
+
+    // Función para generar el calendario dinámico
+    function generateCalendar(year, month) {
+        const calendar = document.getElementById("calendar");
+        const currentMonthName = monthNames[month];
+        const monthTitle = document.getElementById("month-title");
+        monthTitle.textContent = "Mes Actual: " + currentMonthName;
+
+        // Construir el calendario y obtener la tabla creada
+        const table = buildCalendar(year, month);
+
+        // Agregar eventos de clic a los días del calendario
+        const dayElements = table.querySelectorAll(".calendar-day");
+        dayElements.forEach((dayElement) => {
+            dayElement.addEventListener("click", () => {
+                toggleDayColor(dayElement);
+                updateAttendanceInfo();
+            });
+        });
+
+        // Limpiar el contenido del calendario y agregar el nuevo
+        calendar.innerHTML = "";
+        calendar.appendChild(table);
+
+    }
+
+    // Obtener la fecha actual
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    // Nombres de los meses
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+
+    function updateAttendanceInfo() {
+        const greenDaysContainer = document.getElementById("green-days");
+        const redDaysContainer = document.getElementById("red-days");
+        const totalDaysContainer = document.getElementById("total-days");
+
+        const greenDays = document.querySelectorAll(".calendar-day.green");
+        const redDays = document.querySelectorAll(".calendar-day.red");
+        const totalDays = document.querySelectorAll(".calendar-day");
+
+        greenDaysContainer.textContent = "Días Asistidos: " + greenDays.length;
+        redDaysContainer.textContent = "Días No Asistidos: " + redDays.length;
+        totalDaysContainer.textContent = "Total de Días en el Mes: " + totalDays.length;
+    }
+
+    updateAttendanceInfo();
+    // Generar el calendario para el mes actual
+    generateCalendar(currentYear, currentMonth);
+
 });
+
 
