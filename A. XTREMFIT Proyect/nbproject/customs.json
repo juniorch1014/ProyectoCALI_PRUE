@@ -1,0 +1,9 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:insert": {},
+        "th:replace": {
+            "context": "footer"
+        }
+    }
+}

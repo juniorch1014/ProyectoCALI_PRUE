@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <title>RECOMENDACIONES XTREAMFIT</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <!--ICONOS-->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <script src="javaScript.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css" href="Estilos.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">    
+   
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NdsM9axUZ-RICi5owPRkVz5Icg4XmY"></script>
+        <style>
+
+            @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Nothing+You+Could+Do&display=swap');
+
+            .video {
+                position: relative;
+                padding-bottom: 170%; /* Proporción 16:9 para el contenedor */
+                padding-top: 30px; /* Espacio adicional arriba (ajusta según sea necesario) */
+                height: 0;
+            }
+
+            .video video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Estilos para la clase 'custom-heading' */
+            .custom-heading {
+                text-align: center; /* Alineación del texto al centro */
+            }
+
+            /* Estilos para los 'span' dentro de 'custom-heading' */
+            .custom-heading span {
+                font-family: 'Nothing You Could Do', cursive; /* Cambia "TuTipoDeLetraAtractivo" por el tipo de letra deseado */
+                color: black; /* XTREM en negro */
+            }
+
+            /* Estilos para el segundo 'span' dentro de 'custom-heading' */
+            .custom-heading span:last-child {
+                color: red; /* FIT en rojo */
+            }
+            #map {
+                height: 480px; /* Ajusta la altura como desees */
+                width: 30%; /* El ancho ocupará todo el contenedor padre */
+            }
+            #carouselExampleControls{
+                height: 480px; /* Ajusta la altura como desees */
+                width: 100%; /* El ancho ocupará todo el contenedor padre */
+            }
+            .video {
+                flex: 1;
+            }
+         /* Media query para pantallas más pequeñas */
+            @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Cambia la dirección de la flexbox para apilar elementos */
+            }
+            .video, .cards {
+                width: 100%; /* Ocupa todo el ancho de la pantalla */
+            }
+        }
+
+        </style>
+        <style>
+            /* Estilos CSS para el calendario */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                text-align: center;
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            td:hover {
+                background-color: #ddd;
+            }
+
+            
+            /* Estilos para el título del calendario */
+            h2 {
+                text-align: center;
+                font-family: 'Young Serif', serif;
+                margin-top: 10px;
+                font-size: 2.5rem;
+            }
+        </style>
+            <script th:inline="javascript">
+                document.addEventListener("DOMContentLoaded", function() {
+                    //////////////////////////////////////////////////////
+                    //////////////CALENDARIO/////////////////////////////
+                    /////////////////////////////////////////////////////
+                    // Obtener la fecha actual
+                        const currentDate = new Date();
+                        console.log(currentDate);
+                        const currentYear = currentDate.getFullYear();
+                        const currentMonth = currentDate.getMonth();
+
+                        // Nombres de los meses
+                        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+                        function buildCalendar(year, month) {
+                            const calendar = document.getElementById("calendar");
+                            const daysInMonth = new Date(year, month + 1, 0).getDate();
+                            const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+                            const table = document.createElement("table");
+                            const tableBody = document.createElement("tbody");
+
+                            // Encabezados de días de la semana
+                            const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+                            const headerRow = document.createElement("tr");
+                            daysOfWeek.forEach(day => {
+                                const th = document.createElement("th");
+                                th.textContent = day;
+                                headerRow.appendChild(th);
+                            });
+                            tableBody.appendChild(headerRow);
+
+                            let currentDay = 1;
+                            for (let week = 0; currentDay <= daysInMonth; week++) {
+                                const row = document.createElement("tr");
+                                for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+                                    if (week === 0 && dayOfWeek < firstDayOfMonth) {
+                                        // Celdas vacías al principio del primer día de la semana
+                                        const emptyCell = document.createElement("td");
+                                        row.appendChild(emptyCell);
+                                    } else if (currentDay <= daysInMonth) {
+                                        // Celdas con días del mes
+                                        const cell = document.createElement("td");
+                                        cell.textContent = currentDay;
+                                        cell.className = "calendar-day";
+                                        cell.id = "nro-day";
+                                        row.appendChild(cell);
+                                        currentDay++;
+                                    } else {
+                                        // Celdas vacías al final de la última semana
+                                        const emptyCell = document.createElement("td");
+                                        row.appendChild(emptyCell);
+                                    }
+                                }
+                                tableBody.appendChild(row);
+                            }
+
+                            table.appendChild(tableBody);   
+                            calendar.appendChild(table);
+                            return table;
+                        }
+
+                        // Función para alternar clases de estilo al hacer clic en los días
+                        function toggleDayColor(dayElement) {
+                             const currentHora = currentDate.getHours() + " : " + currentDate.getMinutes() + " : " + currentDate.getSeconds();
+
+                            if (dayElement.classList.contains("green")) {
+                                  dayElement.classList.remove("green");
+                                  dayElement.classList.add("red");
+                            } else if (dayElement.classList.contains("red")) {
+                                dayElement.classList.remove("red");
+                            } else {
+                                dayElement.classList.add("green");
+
+                                const dA = parseInt(dayElement.textContent);
+                                console.log(currentHora);
+                                console.log(dA);
+                                console.log(currentMonth+1);
+                                console.log(currentYear);
+
+                                registrarAsistencia(currentHora, dA, currentMonth+1, currentYear,"Asistio");
+
+                            }
+                        }
+
+                        // Función para generar el calendario dinámico
+                        function generateCalendar(year, month) {
+                            const calendar = document.getElementById("calendar");
+                            const currentMonthName = monthNames[month];
+                            const monthTitle = document.getElementById("month-title");
+                            monthTitle.textContent = "Mes Actual: " + currentMonthName;
+
+                            const asistenciasData = /*[[${asistencias}]]*/ [];
+                            console.table(asistenciasData);
+                            const usuarioData = /*[[${empleado}]]*/ [];
+                            console.table(usuarioData);
+
+                            
+
+
+                            // Construir el calendario y obtener la tabla creada
+                            const table = buildCalendar(year, month);
+
+                            // Agregar eventos de clic a los días del calendario
+                            const dayElements = table.querySelectorAll(".calendar-day");
+                            dayElements.forEach((dayElement) => {
+                                
+                                 const fechaCelda = obtenerFechaCelda(dayElement); // Ajusta esta función según tu implementación
+                                 
+                                // Buscar asistencia para la fecha actual
+                                
+                                const asistenciaParaFecha = asistenciasData.find(asistencia => asistencia.dia === fechaCelda);
+                              // console.table(currentMonth.toString());
+                                // Verificar si el usuario asistió y aplicar estilos
+                                if (asistenciaParaFecha && usuarioData.id === asistenciaParaFecha.empleado.id && asistenciaParaFecha.mes === (currentMonth+1).toString() && asistenciaParaFecha.anho === currentYear.toString()) {
+                                    console.table(currentMonth.toString());
+                                        if (asistenciaParaFecha.estado === "Asistio") {
+                                            dayElement.classList.add("green");
+                                        } else if (asistenciaParaFecha.estado === "No Asistio") {
+                                            dayElement.classList.add("red");
+                                        }
+                                    
+                                    
+                                    updateAttendanceInfo();
+                                }
+                                  
+                                
+                                dayElement.addEventListener("click", () => {
+                                    toggleDayColor(dayElement);
+                                    updateAttendanceInfo();
+                                });
+                            });
+
+                            // Limpiar el contenido del calendario y agregar el nuevo
+                            calendar.innerHTML = "";
+                            calendar.appendChild(table);
+
+                        }
+                        function obtenerFechaCelda(dayElement) {
+                            // Obtener el contenido (número del día) de la celda
+                            const numeroDia = dayElement.textContent.trim();
+
+                            // Supongamos que las fechas están en el formato "yyyy-mm-dd"
+                            // Construir la fecha en un formato específico según tus necesidades
+                            const fecha = numeroDia;
+
+                            return fecha;
+                        }
+                        function updateAttendanceInfo() {
+                            const greenDaysContainer = document.getElementById("green-days");
+                            const redDaysContainer = document.getElementById("red-days");
+                            const totalDaysContainer = document.getElementById("total-days");
+
+                            const greenDays = document.querySelectorAll(".calendar-day.green");
+                            const redDays = document.querySelectorAll(".calendar-day.red");
+                            const totalDays = document.querySelectorAll(".calendar-day");
+
+                            greenDaysContainer.textContent = "Días Asistidos: " + greenDays.length;
+                            redDaysContainer.textContent = "Días No Asistidos: " + redDays.length;
+                            totalDaysContainer.textContent = "Total de Días en el Mes: " + totalDays.length;
+                        }
+
+                        function registrarAsistencia(horaRA, diaRA, mesRA, anhoRA, estadoRA) {
+                           $.ajax({
+                                type: 'POST',
+                                url: '/registrarAsistencia',
+                                data: {
+                                    hora: horaRA,
+                                    dia: diaRA,
+                                    mes: mesRA,
+                                    anho: anhoRA,
+                                    est: estadoRA
+                                },
+                                success: function(response) {
+                                    console.log('Datos guardados exitosamente:', response);
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error al guardar los datos:', error);
+                                }
+                            });
+                       }
+                        updateAttendanceInfo();
+                        // Generar el calendario para el mes actual
+                        generateCalendar(currentYear, currentMonth);
+                });
+         
+            </script>
+    </head>
+    <body>
+        <header th:replace = "ZInicios/cabecerainicio :: #cabecerainicio"></header>
+        <div class="container border">
+                <div class="row border">
+                    <div class="col border">1</div>
+                    <div class="col border">2</div>
+                    <div class="col border">3</div>
+                    <div class="col border">4</div>
+                    <div class="col border">5</div>
+                    <div class="col border">6</div>
+                    <div class="col border">7</div>
+                    <div class="col border">8</div>
+                    <div class="col border">9</div>
+                    <div class="col border">10</div>
+                    <div class="col border">11</div>
+                    <div class="col border">12</div>
+                </div>
+        </div> 
+        
+            <!-- Titulo -->
+            <div class=" py-3">
+              <h1 class="text-center custom-heading" style="font-size: 7vw; font-weight: bold;">
+                  <span>CALENDARIO</span><span>FIT</span>
+              </h1>
+            </div>
+        <div class="container border">
+            <!------------>
+           <!-- Video and Descripcion -->
+            <div class="border col-4">
+              <!-- ========== Start Video ========== -->
+              <div id="viDesc">
+                <div class="video">
+                    <video id="volvideo" controls autoplay>
+                        <source src="video/video.mp4" type="video/mp4">
+                        Tu navegador no admite el elemento de video.
+                    </video>
+                    <script>
+                        var video = document.getElementById("volvideo");
+                        video.volume = 0;
+                    </script>
+                </div>
+              </div>
+              <!-- ========== End Video ========== -->
+              
+            </div> 
+            <div class=" col-8 border">
+                    <h2 class="text-center" id="month-title"></h2>
+                    <div id="calendar"></div>
+                &nbsp;    
+                <div class="border">
+                    <div id="attendance-info">
+                        <h2>Asistencia del Cliente</h2>
+                        <div id="green-days">Días Asistidos: </div>
+                        <div id="red-days">Días No Asistidos: </div>
+                        <div id="total-days">Total de Días en el Mes: </div>
+                    </div>
+                </div>      
+            </div>
+          
+            <!--------------------------->
+        </div>     
+            
+            
+            
+            
+            
+          
+             <!-- Footer -->
+        <footer th:replace = "Zmenus/piedepagina :: pie"></footer>
+    </body>
+</html>

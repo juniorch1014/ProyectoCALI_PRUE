@@ -1,0 +1,112 @@
+body
+{
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contenedor-principal {
+  display: flex;
+}
+.contenedor-secundario {
+  display: flex;
+}
+
+.contenedor {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  text-align:center;
+  overflow: auto;
+  
+}
+        
+.sidebar {
+    flex: 1;
+    background-color: whitesmoke;
+    padding: 30px;
+    
+}
+.cuadro {
+    border: 2px solid black;
+    padding: 20px;
+    background-color: white;
+
+    height: 350px;
+    text-align:  left;
+
+}
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 30%;
+    display: inline-block;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 10px;
+}
+.cards {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Monoton&family=Nothing+You+Could+Do&family=Young+Serif&family=Zeyada&display=swap');
+/* Estilos para la clase 'custom-heading' */
+.custom-heading {
+    text-align: center; /* Alineación del texto al centro */
+}
+
+/* Estilos para los 'span' dentro de 'custom-heading' */
+.custom-heading span {
+    font-family: 'Marcellus SC', serif; /* Cambia "TuTipoDeLetraAtractivo" por el tipo de letra deseado */
+    color: black; /* XTREM en negro */
+}
+.custom-heading span1 {
+    font-family: 'Young Serif', serif; /* Cambia "TuTipoDeLetraAtractivo" por el tipo de letra deseado */
+    color: white; /* XTREM en negro */
+}
+
+/* Estilos para el segundo 'span' dentro de 'custom-heading' */
+.custom-heading span:last-child {
+    color: red; /* FIT en rojo */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+#login-status {
+    display: inline-block;
+}
+
+
+/* Estilos para días verdes */
+.green {
+    background-color: green !important;
+    color: white !important;
+}
+
+/* Estilos para días rojos */
+.red {
+    background-color: red !important;
+    color: white !important;
+}

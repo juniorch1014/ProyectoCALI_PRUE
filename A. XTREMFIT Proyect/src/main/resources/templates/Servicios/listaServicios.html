@@ -1,0 +1,310 @@
+<html>
+    <head>
+        <title>Servicio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <!--ICONOS-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <!--Sweet Alert 2-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script>
+            function Eliminar(opcion){
+                
+                event.preventDefault();
+                
+                Swal.fire({
+                    title: '¿Estas seguro?',
+                    text: "¡No serás capaz de recuperarlo!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                                '¡Eliminado!',
+                                'El servicio ha sido eliminado.',
+                                'success'
+                                ).then((result)=>{
+                                    if (result.isConfirmed){
+                                        location.href = opcion.href;
+                                    }
+                                });
+                    }
+                });
+            }
+        
+            function TiempoBusqueda(){
+                event.preventDefault();
+                let timerInterval;
+                Swal.fire({
+                    title: 'Realizando búsqueda',
+                    html: 'Tiempo restante: <b></b> milisegundos.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                        const b = Swal.getHtmlContainer().querySelector('b');
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft();
+                        }, 100);
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval);
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer');
+                    }
+                    
+                    document.formBuscarServ.submit(); 
+                });
+            }
+        
+            
+            function Registrar(){
+                
+                event.preventDefault();
+                
+                const nom = document.getElementById("nom").value;
+                const prec = document.getElementById("prec").value;
+                
+                if(nom==="" || prec==="" )
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No pueden haber espacios vacios',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+                
+                else
+                {
+                        Swal.fire({
+                        title: '¿Quieres registrar el servicio?',
+                        text: "Agregando un nuevo servicio...",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    '¡Guardado!',
+                                    'El servicio ha sido registrado.',
+                                    'success'
+                                    ).then((result)=>{
+                                        if (result.isConfirmed){
+                                            const formulario = document.getElementById("formRegistroServ");
+                                            formulario.submit();
+                                        }
+                                    });
+                        } else if (result.isDenied) {
+                            Swal.fire('La información no ha sido registrada', '', 'info');
+                        }
+                    });
+                }
+            }
+            
+            function Editar(){
+                const exampleModal = document.getElementById('ModalEditar');
+                exampleModal.addEventListener('show.bs.modal', event => {
+                    // Button that triggered the modal
+                    const button = event.relatedTarget;
+                    
+                    // Datos
+                    const id = button.getAttribute('data-bs-id');
+                    const nom = button.getAttribute('data-bs-nombre');
+                    const prec = button.getAttribute('data-bs-precio');
+                    
+                    // Campos
+                    const campoId = document.getElementById('id');
+                    const campoNom = document.getElementById('nomServ');
+                    const campoPre = document.getElementById('preServ');
+                    
+                    //Colocar los datos a los datos
+                    campoId.value=id;
+                    campoNom.value=nom;
+                    campoPre.value=prec;
+                    
+                });
+            }
+            
+            function Actualizar(){
+                
+                event.preventDefault();
+                
+                //const id = document.getElementById("id").value;
+                const nom = document.getElementById("nomServ").value;
+                const prec = document.getElementById("preServ").value;
+                
+                if(nom==="" || prec==="")
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No pueden haber espacios vacios',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+                
+                else
+                {
+                        Swal.fire({
+                        title: '¿Quieres actualizar el servicio?',
+                        text: "Actualizando los datos...",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    '¡Guardado!',
+                                    'El servicio ha sido actualizado.',
+                                    'success'
+                                    ).then((result)=>{
+                                        if (result.isConfirmed){
+                                            const formulario = document.getElementById("formActualizarServ");
+                                            formulario.submit();
+                                        }
+                                    });
+                        } else if (result.isDenied) {
+                            Swal.fire('La información no ha sido actualizada', '', 'info');
+                        }
+                    });
+                }
+            }
+        </script>
+        
+    </head>
+    <body onload="Editar()">
+
+            <div th:insert="Zmenus/encabezado :: #encabezado"> </div> 
+
+            <div class="container">
+            <hr>
+            
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-circle"></i></button>
+                    <a th:href="@{orden_ascS}" class="btn btn-warning"><i class="bi bi-sort-up"></i></a>
+                    <a th:href="@{orden_descS}" class="btn btn-info"><i class="bi bi-sort-down"></i></a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                            
+                        </ul>
+                        <form class="d-flex" role="search" action="buscarS" method="POST" name="formBuscarServ">
+                            <input type="text" class="form-control me-2" name="dato" placeholder="Ingrese dato a buscar">
+                            <button onclick="return TiempoBusqueda()" class="btn btn-outline-success" type="submit"><i class="bi bi-search">Buscar</i></button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            
+            <hr>
+
+            
+            <hr>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table" style="background-color: #778899;">
+                        <th scope="col" style="color:#ffffff;">#</th>
+                        <th scope="col" style="color:#ffffff;">ID</th>
+                        <th scope="col" style="color:#ffffff;">Nombre</th>
+                        <th scope="col" style="color:#ffffff;">Precio</th>
+                        <th scope="col" style="color:#ffffff;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr th:each="servicio,status : ${servicios}">
+                        <td th:text="${status.count}"></td>
+                        <td th:text="${servicio.id}"></td>
+                        <td th:text="${servicio.nombre}"></td>
+                        <td th:text="${servicio.precio}"></td>
+                        <td>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalEditar" th:attr="data-bs-id=${servicio.id},data-bs-nombre=${servicio.nombre},data-bs-precio=${servicio.precio}"><i class="bi bi-pencil-square"></i></button>
+                        
+                            <a onclick="return Eliminar(this)" th:href="@{eliminarS(id=${servicio.id})}" class="btn btn-warning"><i class="bi bi-trash3-fill"></i></a>
+                        </td>
+                    </tr>
+                <tbody>   
+            </table>
+            
+            
+        </div>
+        
+        
+        <!-- Modal REGISTRAR -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo servicio</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="registrarS" method="POST" name="formRegistroServ" id="formRegistroServ">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                <input type="text" class="form-control" name="nom" id="nom" placeholder="Nombre de servicio">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Precio(mensual): </label>
+                                <input class="form-control" name="prec" id="prec" placeholder="Precio de servicio">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button onclick="return Registrar()" type="button" class="btn btn-primary">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal EDITAR -->
+        <div class="modal fade" id="ModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar servicio</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="actualizarS" method="POST" name="formActualizarServ" id="formActualizarServ">
+                            <input type="hidden" name="id" id="id">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                <input type="text" class="form-control" name="nombre" id="nomServ" placeholder="Nombre de servicio">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Precio: </label>
+                                <input class="form-control" name="precio" id="preServ" placeholder="Precio de servicio">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button onclick="return Actualizar()" type="button" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
