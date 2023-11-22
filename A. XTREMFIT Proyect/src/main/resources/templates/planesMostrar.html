@@ -105,6 +105,9 @@
                     });
                 } else
                 {
+                    
+                    
+                    
                     Swal.fire({
                         title: '¿Quieres registrar el servicio?',
                         text: "Agregando un nuevo servicio...",
@@ -209,8 +212,12 @@
                     });
                 }
             }
-
-
+        </script>
+        <script th:inline="javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+              const asistenciasData = /*[[${registros}]]*/ [];
+              console.table(asistenciasData);
+          });
         </script>
 </head>
 
@@ -323,7 +330,7 @@
     
     <!-- Footer -->
     <footer th:replace = "Zmenus/piedepagina :: pie"></footer>
-    <script>
+    <script >
         
         // Obtén el contenido que viene de /*[[${servicios}]]*/
         const data = "/*[[${servicios}]]*/";
@@ -460,5 +467,6 @@
         console.table(usuarios);
        // window.onclose = alSalir();
     </script>
+    
 </body>
 </html>

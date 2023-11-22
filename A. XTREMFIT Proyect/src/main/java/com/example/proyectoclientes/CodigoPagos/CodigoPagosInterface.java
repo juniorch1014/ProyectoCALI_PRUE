@@ -3,7 +3,6 @@ package com.example.proyectoclientes.CodigoPagos;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface CodigoPagosInterface {
     public List<CodigoPagos> Listar();
     public Optional<CodigoPagos> ConsularId(int id);

@@ -181,11 +181,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                                 const dA = parseInt(dayElement.textContent);
                                 console.log(currentHora);
-                                console.log(dA);
-                                console.log(currentMonth+1);
-                                console.log(currentYear);
+                                console.log(dA.toString());
+                                console.log((currentMonth+1).toString());
+                                console.log(currentYear.toString());
 
-                                registrarAsistencia(currentHora, dA, currentMonth+1, currentYear,"Asistio");
+                                registrarAsistencia(currentHora, dA.toString(), (currentMonth+1).toString(), currentYear.toString(),"Asistio");
 
                             }
                         }
@@ -280,9 +280,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 },
                                 success: function(response) {
                                     console.log('Datos guardados exitosamente:', response);
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('Error al guardar los datos:', error);
                                 }
                             });
                        }

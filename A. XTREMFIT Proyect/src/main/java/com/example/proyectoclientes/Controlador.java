@@ -8,6 +8,8 @@ import com.example.proyectoclientes.Asistencia.Asistencia;
 import com.example.proyectoclientes.Asistencia.AsistenciaService;
 import com.example.proyectoclientes.Cliente.Cliente;
 import com.example.proyectoclientes.Cliente.IClienteService;
+import com.example.proyectoclientes.CodigoPagos.CodigoPagos;
+import com.example.proyectoclientes.CodigoPagos.CodigoPagosService;
 import com.example.proyectoclientes.Empleado.Empleado;
 import com.example.proyectoclientes.Empleado.IEmpleadoService;
 import com.example.proyectoclientes.Registro.IRegistroService;
@@ -16,6 +18,7 @@ import com.example.proyectoclientes.servicio.IServicioService;
 import com.example.proyectoclientes.servicio.Servicio;
 import com.example.proyectoclientes.login.ILoginService;
 import com.example.proyectoclientes.login.login;
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -54,6 +57,9 @@ public class Controlador {
     @Autowired
     private AsistenciaService serviceA;
     
+    @Autowired
+    private CodigoPagosService serviceCP;
+    
     String carpeta="Registro/";
     
     Empleado aux = new Empleado();
@@ -66,6 +72,10 @@ public class Controlador {
         
                 List<Servicio> servicios = serviceS.Listar();
                 model.addAttribute("servicios", servicios);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
+                
         return  "/ZInicios/primerInicio.html";
     }
     
@@ -115,6 +125,9 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
                 return "inicio";
             }    
         }    
@@ -149,7 +162,7 @@ public class Controlador {
             @RequestParam("ser") Servicio ser,
             @RequestParam("dur") int dur,
             Model model) {
-        
+                
                 model.addAttribute("empleado", aux);
                 
                 List<Cliente> clientes = serviceC.Listar();
@@ -163,6 +176,9 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
         
         Registro r = new Registro();
 
@@ -201,23 +217,51 @@ public class Controlador {
         r.setDiasFaltantes(diasFaltantes);
       
         String nombreServicio = r.getServicio().getNombre().toString();
-
-
+        
+        float total = 0;
         for (int pos = 0; pos < servicios.size(); pos++) {
             if (servicios.get(pos).getNombre().equals(ser.getNombre())) {
-                float total = dur * servicios.get(pos).getPrecio();
+                total = dur * servicios.get(pos).getPrecio();
                 r.setCosto_total(total);
             }
         }
-
+        
+        
+        ///////////CODIGO//////////
+        for(int i = 0; i<dur; i++){
+            CodigoPagos cp = new CodigoPagos();
+            cp.setEmpleado(emp);
+            cp.setCliente(cli);
+            //cp.setRegistro(r);
+            cp.setServicio(ser);
+            cp.setCosto_total(total);
+            
+            String codigoG = GenerarCodigo();
+                
+            cp.setCodigo(codigoG);
+            cp.setEstado("Por Pagar");
+            serviceCP.Guardar(cp);
+        }
+        
         serviceR.Guardar(r);
+        
         return "planesMostrar";
     }
     
     public String GenerarCodigo(){
         
-        return null;
-        
+            String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            SecureRandom random = new SecureRandom();
+            StringBuilder codigoGenerado = new StringBuilder();
+
+            for (int i = 0; i < 8; i++) {
+                int index = random.nextInt(caracteres.length());
+                codigoGenerado.append(caracteres.charAt(index));
+            }
+
+            System.out.println("Código Generado: " + codigoGenerado.toString());
+            return codigoGenerado.toString();
+
     }
     
     
@@ -243,6 +287,9 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
         
         Asistencia a = new Asistencia();
         a.setHora(hora);
@@ -274,6 +321,9 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
         return "inicio";
     }
     @GetMapping("/planesMostrar")
@@ -292,6 +342,9 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
         return "planesMostrar";
     }
     @GetMapping("/pageNoticia")
@@ -310,6 +363,9 @@ public class Controlador {
                 List<Asistencia> asistencias = serviceA.Listar();
                 
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
         return  "/ZInicios/pageNoticia.html";
     }
     @GetMapping("/pageRecomendacion")
@@ -328,6 +384,10 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
+                
         return  "/ZInicios/pageRecomendacion.html";
     }
     @GetMapping("/pageCalendario")
@@ -346,6 +406,9 @@ public class Controlador {
                 
                 List<Asistencia> asistencias = serviceA.Listar();
                 model.addAttribute("asistencias",asistencias);
+                
+                List<CodigoPagos> codigoPagos = serviceCP.Listar();
+                model.addAttribute("codigoPagos", codigoPagos);
         return  "/ZInicios/pageCalendario.html";
     }
 

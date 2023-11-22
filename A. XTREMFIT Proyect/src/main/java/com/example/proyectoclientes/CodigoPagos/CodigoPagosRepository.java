@@ -4,7 +4,6 @@
  */
 package com.example.proyectoclientes.CodigoPagos;
 
-import com.example.proyectoclientes.Asistencia.Asistencia;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,6 +15,7 @@ public interface CodigoPagosRepository extends CrudRepository<CodigoPagos, Integ
     @Query(value = " SELECT * FROM codigopagos "
             + " INNER JOIN empleado ON codigopagos.usuario_id = empleado.id "
             + " WHERE empleado.nombre LIKE %?1% "
+             + " OR registro.id  LIKE %?1% "
             + " OR hora  LIKE %?1% "
             + " OR codigo LIKE %?1% "
             + " OR estado LIKE %?1% ", nativeQuery = true)
