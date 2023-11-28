@@ -22,7 +22,7 @@ describe('template spec', () => {
     
     
     cy.get('#miTablaServicios_filter > label > input').focus();
-    cy.get(':nth-child(5) > :nth-child(6) > .ver-pagos-btn').click();
+    cy.get(':nth-child(3) > :nth-child(6) > .ver-pagos-btn').click();
 
 
 
